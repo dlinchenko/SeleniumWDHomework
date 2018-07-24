@@ -14,9 +14,7 @@ namespace SeleniumWDHomework.PageActions
             _searchResultsPage = new SearchResultsPage(driver);
         }
 
-        public string[] GetItemNames()
-        {
-            return _searchResultsPage.ItemTitles.Select(i => i.Text.ToLower()).ToArray();
-        }
+        public string[] GetItemNamesOnSearchResultsPage() =>_searchResultsPage.ItemTitles.Select(i => i.Text.ToLower()).ToArray();
+        
     }
 }

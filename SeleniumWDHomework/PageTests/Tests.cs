@@ -28,20 +28,20 @@ namespace SeleniumWDHomework.PageTests
         }
 
         [TestMethod]
-        public void SearchInputTest()
+        public void SearchItemSoAllResultItemsNamesContainItem()
         {
             var keyword = "macbook";
             var homePage = new HomePageActions(_driver);
             var resultsPage = new SearchResultsPageActions(_driver);
             homePage.Search(keyword);
-            resultsPage.GetItemNames().ToList().ForEach(item => NUnit.Framework.Assert.That(item.Contains(keyword), Is.True));
+            resultsPage.GetItemNamesOnSearchResultsPage().ToList().ForEach(item => NUnit.Framework.Assert.That(item.Contains(keyword), Is.True));
         }
 
 
         [TestMethod]
         [Microsoft.VisualStudio.TestTools.UnitTesting.Ignore]
         //this test will fail as selenium coould not find reset_filter14 element
-        public void Test2()
+        public void SelectBrandOnTVPageSoAllResultsItemsContainBrandAndRemovableBrandFilterIsVisisble()
         {
             _driver.Url = "https://rozetka.com.ua/ua/all-tv/c80037/";
 
@@ -60,7 +60,7 @@ namespace SeleniumWDHomework.PageTests
 
 
         [TestMethod]
-        public void Test3()
+        public void SelectItemOnTVPageSoItemNameIsSameOnTVPageAndOnItemPage()
         {
             _driver.Url = "https://rozetka.com.ua/ua/all-tv/c80037/";
             var tvPage = new TVPageActions(_driver);
@@ -76,13 +76,13 @@ namespace SeleniumWDHomework.PageTests
 
 
         [TestMethod]
-        public void Test4()
+        public void ValidateThatFiltersOnTVPageAreNamedAndOrderedAsExpected()
         {
-            _driver.Url = "https://rozetka.com.ua/ua/all-tv/c80037/";
-
             var filtersExpected = new List<string> { "Безвідсотковий кредит", "Виробник", "Діагональ екрана", "Підтримка Smart TV", "Роздільна здатність", "Wi-Fi", "Ціна", "Країна-виробник", "Діапазони цифрового тюнера", "ТВ-тюнер", "Особливі властивості", "HDR", "Продавець", "Колір" };
-       
-            var filtersActual = GetAllVisibleFiltersTVPage().Select(i => i.Text.Trim()).ToList();
+            _driver.Url = "https://rozetka.com.ua/ua/all-tv/c80037/";
+            var tvPage = new TVPageActions(_driver);
+
+            var filtersActual = tvPage.GetAllVisibleFiltersTVPage().Select(i => i.Text.Trim()).ToList();
 
             NUnit.Framework.Assert.That(filtersActual, Is.EqualTo(filtersExpected));
         }
