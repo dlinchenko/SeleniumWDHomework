@@ -4,8 +4,8 @@ using OpenQA.Selenium;
 using SeleniumWDHomework.PageActions;
 using SeleniumWDHomework.CoreClasses;
 using System.Linq;
-
-
+using System.Collections;
+using System.Collections.Generic;
 
 namespace SeleniumWDHomework.PageTests
 {
@@ -40,18 +40,53 @@ namespace SeleniumWDHomework.PageTests
 
 
         [TestMethod]
+        //[Microsoft.VisualStudio.TestTools.UnitTesting.Ignore]
+        //this test will fail as selenium coould not find reset_filter14 element
         public void Test2()
         {
             _driver.Url = "https://rozetka.com.ua/ua/all-tv/c80037/";
-            _driver.FindElement(By.Id("filter_producer_14")).Click();
-            //lgFilter.Click();
-            //var filterValue = lgFilter.FindElement(By.Id("reset_filter14")).Text;
-            var filterValue = _driver.FindElement(By.XPath("//*[@id='reset_filter14']/a"));
 
+            var tvPage = new TVPageActions(_driver);
+            var filterName = "filter_producer_14";//LG reference
+            tvPage.ClickOnElement(_driver.FindElement(By.Id(filterName)));
 
-            //NUnit.Framework.Assert.That(lgFilter.FindElement(By.Id("reset_filter14")).Text, Is.EqualTo("LG"));
+            var appliedFilterValue = tvPage.GetAplliedFilter("reset_filter14");
+            var allItemsNames = tvPage.GetAllItemsNamesOnGeneralTVPage();
+
+            NUnit.Framework.Assert.That(appliedFilterValue.Text, Is.EqualTo("LG"));
+            tvPage.GetAllItemsNamesOnGeneralTVPage().ToList().ForEach(itemName => NUnit.Framework.Assert.That(itemName.Text.Contains("LG"), Is.True));
 
         
+        }
+
+
+        [TestMethod]
+        public void Test3()
+        {
+            _driver.Url = "https://rozetka.com.ua/ua/all-tv/c80037/";
+            var tvPage = new TVPageActions(_driver);
+
+            var itemNameOnGeneralPage = tvPage.GetItemNameOnGeneralTVPage().Text.Trim();
+            tvPage.GetItemNameOnGeneralTVPage().Click();
+            var itemNameOnItemsPage = tvPage.GetItemNameOnTVProductPage().Text.Trim();
+
+
+            NUnit.Framework.Assert.That(itemNameOnGeneralPage, Is.EqualTo(itemNameOnItemsPage));
+
+        }
+
+
+        [TestMethod]
+        public void Test4()
+        {
+            _driver.Url = "https://rozetka.com.ua/ua/all-tv/c80037/";
+
+            var filtersExpected = new List<string> { "Безвідсотковий кредит", "Виробник", "Діагональ екрана", "Підтримка Smart TV", "Роздільна здатність", "Wi-Fi", "Ціна", "Країна-виробник", "Діапазони цифрового тюнера", "ТВ-тюнер", "Особливі властивості", "HDR", "Продавець", "Колір" };
+       
+
+            var filtersActual = _driver.FindElements(By.CssSelector(".sprite-side.filter-parametrs-i-title")).ToArray().Select(i => i.Text.Trim()).ToList();
+
+            NUnit.Framework.Assert.That(filtersActual, Is.EqualTo(filtersExpected));
         }
 
     }

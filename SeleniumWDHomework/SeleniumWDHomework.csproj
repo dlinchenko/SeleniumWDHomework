@@ -62,6 +62,7 @@
     <Compile Include="CoreClasses\SeleniumWebDriverChromeDriver.cs" />
     <Compile Include="PageActions\HomePageActions.cs" />
     <Compile Include="PageActions\SearchResultsPageActions.cs" />
+    <Compile Include="PageActions\TVPageActions.cs" />
     <Compile Include="PageClasses\HomePage.cs" />
     <Compile Include="PageClasses\SearchResultsPage.cs" />
     <Compile Include="PageClasses\TVPage.cs" />
