@@ -1,0 +1,14 @@
+﻿Create project for citrus.ua store using project form lecture as example.
+
+As min you should implement next cases:
+⦁	 Steps:  Search by “macbook” 
+ Expected result: all search results contain “macbook” in title
+
+⦁	Steps:  Go to “TV” > select “LG” 
+Expected result: all search results contain “LG” in title and “LG” pill is displayed.
+
+⦁	Steps: Go to “TV” > save name and price of first product > open the product
+Expected result: name and price are displayed correct
+
+⦁	Steps: Go to “TV” 
+Expected result: all filter section are displayed and in correct order (list of section and order take from website)
