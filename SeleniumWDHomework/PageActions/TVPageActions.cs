@@ -22,6 +22,8 @@ namespace SeleniumWDHomework.PageActions
 
         public IWebElement[] GetAllItemsNamesOnGeneralTVPage() => _driver.FindElements(By.CssSelector(".g-i-tile-i-title.clearfix")).ToArray();
 
+        public IWebElement[] GetAllVisibleFiltersTVPage() => _driver.FindElements(By.CssSelector(".sprite-side.filter-parametrs-i-title")).ToArray();
+
 
 
     }

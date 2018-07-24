@@ -4,7 +4,6 @@ using OpenQA.Selenium;
 using SeleniumWDHomework.PageActions;
 using SeleniumWDHomework.CoreClasses;
 using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace SeleniumWDHomework.PageTests
@@ -40,7 +39,7 @@ namespace SeleniumWDHomework.PageTests
 
 
         [TestMethod]
-        //[Microsoft.VisualStudio.TestTools.UnitTesting.Ignore]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.Ignore]
         //this test will fail as selenium coould not find reset_filter14 element
         public void Test2()
         {
@@ -83,8 +82,7 @@ namespace SeleniumWDHomework.PageTests
 
             var filtersExpected = new List<string> { "Безвідсотковий кредит", "Виробник", "Діагональ екрана", "Підтримка Smart TV", "Роздільна здатність", "Wi-Fi", "Ціна", "Країна-виробник", "Діапазони цифрового тюнера", "ТВ-тюнер", "Особливі властивості", "HDR", "Продавець", "Колір" };
        
-
-            var filtersActual = _driver.FindElements(By.CssSelector(".sprite-side.filter-parametrs-i-title")).ToArray().Select(i => i.Text.Trim()).ToList();
+            var filtersActual = GetAllVisibleFiltersTVPage().Select(i => i.Text.Trim()).ToList();
 
             NUnit.Framework.Assert.That(filtersActual, Is.EqualTo(filtersExpected));
         }
