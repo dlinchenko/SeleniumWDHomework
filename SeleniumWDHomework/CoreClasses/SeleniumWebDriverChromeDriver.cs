@@ -7,10 +7,8 @@ namespace SeleniumWDHomework.CoreClasses
 {
     public static class SeleniumWebDriverChromeDriver
     {
-        public static IWebDriver Driver
-        {
-            get { return new ChromeDriver(); }
+        private static IWebDriver _driver;
 
-        }
+        public static IWebDriver Driver => _driver == null? _driver = new ChromeDriver(): _driver;
     }
 }

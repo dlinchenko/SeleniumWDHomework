@@ -5,6 +5,7 @@ using SeleniumWDHomework.PageActions;
 using SeleniumWDHomework.CoreClasses;
 using System.Linq;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace SeleniumWDHomework.PageTests
 {
@@ -21,7 +22,8 @@ namespace SeleniumWDHomework.PageTests
             _driver.Url = "https://rozetka.com.ua"; //"https://www.citrus.ua/"; - does not work on citrus at all
         }
 
-        [TestCleanup]
+
+        [TearDown]
         public void TestTearDown()
         {
             _driver.Quit();
@@ -39,7 +41,7 @@ namespace SeleniumWDHomework.PageTests
 
 
         [TestMethod]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.Ignore]
+        //[Microsoft.VisualStudio.TestTools.UnitTesting.Ignore]
         //this test will fail as selenium coould not find reset_filter14 element
         public void SelectBrandOnTVPageSoAllResultsItemsContainBrandAndRemovableBrandFilterIsVisisble()
         {
@@ -48,7 +50,7 @@ namespace SeleniumWDHomework.PageTests
             var tvPage = new TVPageActions(_driver);
             var filterName = "filter_producer_14";//LG reference
             tvPage.ClickOnElement(_driver.FindElement(By.Id(filterName)));
-
+            Thread.Sleep(5000);
             var appliedFilterValue = tvPage.GetAplliedFilter("reset_filter14");
             var allItemsNames = tvPage.GetAllItemsNamesOnGeneralTVPage();
 
