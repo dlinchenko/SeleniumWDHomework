@@ -23,7 +23,7 @@ namespace SeleniumWDHomework.PageTests
         }
 
 
-        [TearDown]
+        [TestCleanup]
         public void TestTearDown()
         {
             _driver.Quit();
